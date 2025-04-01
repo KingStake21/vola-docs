@@ -70,7 +70,7 @@ export default function NavbarContent(): JSX.Element {
     <NavbarContentLayout
       left={
         // TODO stop hardcoding items?
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
           <a
             href="/"
@@ -79,6 +79,14 @@ export default function NavbarContent(): JSX.Element {
           >
             <VolaLogo />
           </a>
+          <a 
+          href="/category/changelog"
+          style={{
+            paddingTop:"1rem",
+            fontSize: "0.8em",
+            fontStyle: "italic",
+            whiteSpace:"nowrap"
+          }}>v0.2.0-dev</a>
           <NavbarItems items={leftItems} />
         </div>
       }
