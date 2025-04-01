@@ -72,7 +72,7 @@ cd vola-node-docker
    - To generate the required SURI for Aura and Grandpa keys:
 
    ```bash
-       docker run --rm -it nuvoladigital/vola-node key generate
+   docker run --rm -it nuvoladigital/vola-node key generate
    ```
 
    This will output a secret seed, which is the required SURI.
@@ -96,3 +96,57 @@ cd vola-node-docker
 
 5. **Access the Node:**
    Once the node is up and running, you can interact with it using the RPC port (default: 9944).
+
+## Updating Vola Chain Node
+
+### Updating the Vola Chain Node Docker Image
+
+If you have an older version of the vola node running, update the **Docker image** using the following steps:
+
+1. **Pull the latest image:**
+
+```bash
+docker pull nuvoladigital/vola-node:latest
+```
+
+2. **Shut down the existing container:**
+
+```bash
+docker compose down
+```
+
+3. **Restart the container with the updated image:**
+
+```bash
+docker compose up
+```
+
+:::note
+Make sure you are on the same directory as aggregator node docker repo.
+:::
+
+### Upgrading Chain to new Devnet (v2)
+
+If you already have a Vola chain running during the first devnet release, follow the steps below to upgrade your **Vola Chain Node**.
+
+1. **Purge previous chain**
+
+:::important
+As we are currently in the development phase, many unstable changes may require the chain to be purged. Once the chain transitions to the testnet phase, there will be no need for purging, and proper migration will be managed through a runtime upgrade.
+:::
+
+```bash
+docker exec -it vola-devnet-node /usr/local/bin/vola-node purge-chain --chain devnet
+```
+
+2. **Shut down the existing container:**
+
+```bash
+docker compose down
+```
+
+3. **Restart the container with the updated image:**
+
+```bash
+docker compose up
+```
