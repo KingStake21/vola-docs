@@ -129,23 +129,23 @@ Make sure you are on the same directory as aggregator node docker repo.
 
 If you already have a Vola chain running during the first devnet release, follow the steps below to upgrade your **Vola Chain Node**.
 
-1. **Purge previous chain**
+1. **Shut down the existing container:**
+
+```bash
+docker compose down
+```
+
+2. **Purge previous chain**
 
 :::important
 As we are currently in the development phase, many unstable changes may require the chain to be purged. Once the chain transitions to the testnet phase, there will be no need for purging, and proper migration will be managed through a runtime upgrade.
 :::
 
 ```bash
-docker exec -it vola-devnet-node /usr/local/bin/vola-node purge-chain --chain devnet
+docker volume remove vola_devnet_data
 ```
 
-2. **Shut down the existing container:**
-
-```bash
-docker compose down
-```
-
-3. **Restart the container with the updated image:**
+3. **Restart the container:**
 
 ```bash
 docker compose up
