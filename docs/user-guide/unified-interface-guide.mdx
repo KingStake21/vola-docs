@@ -18,17 +18,39 @@ Using the Interface, users can interact with the vola network to upload and down
 
 ## Navigating the Unified Interface
 
+### Onboarding: Connect Wallet or Login with Google
+
+To use the interface, you need to authenticate using one of the follwing methods:
+
+- **Connect Wallet**    : Use a substrate supported wallets like Polkadot.js, subwallet etc. Install the extension for the wallet.
+- **Login with Google** : Use your Google account for a Web2-friendly authentication.
+
+
 ### Connect Wallet
 
-To use the interface, you need substrate supported wallets like Polkadot.js, Subwallet etc. Install the extension for the wallet.
+- Click on the connect wallet button 
 
-- Click on connect wallet button and select the Wallet
+  ![Onboard Menu](/screenshots/onboard-menu.png)
+
+- Select the Wallet
 
   ![Select Wallet](/screenshots/select-wallet.png)
 
 - Choose the account to connect with.
 
   ![Select Account](/screenshots/select-account.png)
+
+
+### Login with Google
+
+- Click on the Login with Google Button and select your desired account
+
+- Click confirm after the account has been selected
+
+- Click the Checkbox to provide access of the files in your gmail account and connect your wallet to start uploading files.
+
+  ![Check Access](/screenshots/check-access.png)
+
 
 ### Load Test Funds
 
@@ -42,7 +64,20 @@ To perform any action on the network, funds can be loaded from the faucet.
 
   ![Request Fund](/screenshots/request-fund.png)
 
-### Upload File
+
+### Set Password
+
+Password for an individual account can be set so that user can choose to encrypt the file in upload action if required.
+
+- Select the "Lock" button to on the top right side of the screen, next to "Upload file" button
+    
+  ![Upload Button Navigation](/screenshots/set-password-navigation.png)
+
+- Enter your desired password for future use on the pop-up model of password field
+
+  ![Set Password](/screenshots/set-password.png)
+
+### Upload File (public)
 
 To upload files, click on the upload file button on the top right.
 
@@ -53,12 +88,40 @@ To upload files, click on the upload file button on the top right.
 
   ![Verify Metadata](/screenshots/verify-metadata.png)
 
-- Select aggregator node through which to upload the file.
+- Select an aggregator node to upload your file. For optimal performance, choose one with the lowest latency.
 
   ![Select Aggregator Node](/screenshots/select-aggregator-node.png)
 
 - Click Upload and sign transaction to upload the file
 - Once the file upload success, sign another transaction to commit upload success on chain.
+
+### Upload File (Private - Encrypted)
+
+- Click on the upload file button on the top right.
+- Select the desired file to upload.
+- Verify the file metadata and price quote and select Privacy value as "Private" to encrypt the uploaded file.
+
+  ![Private Upload](/screenshots/private-upload.png)
+
+- Click Upload and sign transaction to upload the file
+- Once the file upload success, sign another transaction to commit upload success on chain.
+
+:::note
+
+The password must not be cleared to download the files that were encrypted while uploading.
+
+:::
+
+
+### Syncing files with Vola
+
+- Navigate to "Google Files" menu
+- Click on "Show File picker" button in "Google Files" page to select the files you want to bring and sync to Vola
+- Select any file you want to Sync by expanding the menu option
+
+  ![Sync option](/screenshots/sync-menu.png)
+
+- Click "Sync to Vola" to upload the file from google drive to vola drive
 
 :::note
 
