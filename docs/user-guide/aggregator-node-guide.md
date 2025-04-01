@@ -167,7 +167,13 @@ docker compose down
 3. **Restart the container with the updated image:**
 
 ```bash
-docker compose up
+bash setup.sh
+```
+
+To run in detached mode, use:
+
+```bash
+bash setup.sh --detach
 ```
 
 :::note
