@@ -16,7 +16,7 @@ Changelog:
 - File chunking and upload for larger files.
 - Google drive file listing and syncing.
 - Checking node connectivity to calculate node latency.
-- Bug fixes
+- Bug fixes.
 
 ## v0.1.0-dev (dev202502)
 
