@@ -65,14 +65,12 @@ cd aggregator-node-docker
         RPC for vola chain devnet.
       - **STORAGE_CAPACITY**:
         Amount of storage in GB to offer to the network.
-      - **NODE_LOCATION**:
-        Location where the node is running.
       - **GATEWAY_DOMAIN**:
-        Public domain that points to the running aggregator node. Also need to be configured for https (SSL) support.
-        The aggregator node listening at **_$LISTEN_ADDR:$LISTEN_PORT_** should be accessible through **_https://$GATEWAY_DOMAIN:$GATEWAY_PORT_** with https.
+        Public domain that points to the running aggregator node.
+        The aggregator node listening at **_$LISTEN_ADDR:$LISTEN_PORT_** should be accessible through **_https://$GATEWAY_DOMAIN:$GATEWAY_PORT_**.
         Eg: mynode.example.com (This is just an example domain, do not use this. Use your own domain.)
       - **GATEWAY_PORT**:
-        Port to use with the **_$GATEWAY_DOMAIN_** to reach the running node. SSL should be configured at this port.
+        Port to use with the **_$GATEWAY_DOMAIN_** to reach the running node with SSL access. Default is `443`.
 
     Ensure that these variables are properly configured to match your environment and security requirements.
 
@@ -87,25 +85,103 @@ cd aggregator-node-docker
 
     The Secret seed or Secret phrase can be passed as `SURI` and public key will be the `ACCOUNT`
 
-4.  **Start the Node:**
-    With your environment variables configured, you can start the node by running Docker Compose:
+4.  **Verify Environment Configuration:**
+    Run the following script to check if all required environment variables are set:
 
     ```bash
-    docker-compose up
+    bash env-check.sh
     ```
 
-5.  **Register the Node:**
+    If there are missing or incorrect values, update the _.env_ file accordingly.
+
+5.  **Setup SSL and Start the Node:**
+
+    Run the `setup.sh` script, which will:
+
+    - Verify the environment variables.
+    - Obtain an SSL certificate using Let's Encrypt.
+    - Configure an Nginx reverse proxy with SSL.
+    - Start the Aggregator Node using Docker Compose.
+
+    ```bash
+    bash setup.sh
+    ```
+
+    To run in detached mode, use:
+
+    ```bash
+    bash setup.sh --detach
+    ```
+
+6.  **Register the Node:**
     Before participating on the aggregation, node should be register in the chain.
 
     - You would need some funds on the owner account for registering the node (for transaction fee and registration fee, which is based on storage capacity offered). You can use faucet to load test funds on your account.
-
-    - You need to have a public domain that points to the aggregator node that you just ran. Also, You need to configure https (SSL) support for that.
 
     - To register the node:
 
           ```bash
             source .env
-            docker exec -it aggregator-node /usr/local/bin/aggregator-node register --chain-rpc $CHAIN_RPC --address $ACCOUNT --gateway $GATEWAY_DOMAIN --gateway-port $GATEWAY_PORT --capacity $STORAGE_CAPACITY --location $NODE_LOCATION
+            docker exec -it aggregator-node /usr/local/bin/aggregator-node node register --chain-rpc $CHAIN_RPC --address $ACCOUNT --gateway $GATEWAY_DOMAIN --gateway-port $GATEWAY_PORT --capacity $STORAGE_CAPACITY
           ```
 
     After the registration is completed, your node can start receiving upload requests.
+
+## Updating Aggregator Node Registration Information
+
+When updating your **Aggregator Node** registration details (such as **gateway domain and port**), follow the steps below.
+
+### Run the Update Command
+
+Use the following command to update your node’s registration information:
+
+```bash
+docker exec -it aggregator-node /usr/local/bin/aggregator-node node update
+  --chain-rpc $CHAIN_RPC
+  --address $ACCOUNT
+  --gateway $GATEWAY_DOMAIN
+  --gateway-port $GATEWAY_PORT
+  --node-id {your-node-id-here}
+```
+
+:::note
+Replace \{your-node-id-here\} with your node id that was recieved during registration.
+:::
+
+### Updating the Aggregator Node Docker Image
+
+If you have an older version of the aggregator node running, update the **Docker image** using the following steps:
+
+1. **Pull the latest image:**
+
+```bash
+docker pull nuvoladigital/aggregator-node:latest
+```
+
+2. **Shut down the existing container:**
+
+```bash
+docker compose down
+```
+
+3. **Restart the container with the updated image:**
+
+```bash
+bash setup.sh
+```
+
+To run in detached mode, use:
+
+```bash
+bash setup.sh --detach
+```
+
+:::note
+Make sure you are on the same directory as aggregator node docker repo.
+:::
+
+:::important
+To upgrade to the new devnet release, you will need to re-register the node on the chain, as the chain has been purged.
+
+As we are currently in the development phase, many unstable changes may require the chain to be purged. Once the chain transitions to the testnet phase, there will be no need for purging, and proper migration will be managed through a runtime upgrade.
+:::
