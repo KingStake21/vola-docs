@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## v0.2.0-dev (dev202504)
 
-This release contains changes from v0.1.0-dev to v0.2.0-dev
+This release contains changes from v0.1.0-dev to v0.2.0-dev.
 
 Changelog:
 
