@@ -16,7 +16,7 @@
 .footerBottom {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: auto 1fr auto;
 }
 .footerBottom > div:nth-child(2) {
   display: flex;
@@ -29,6 +29,22 @@
   justify-content: end;
   align-items: center;
   gap: 0.5rem;
+}
+.footerBottom > :nth-child(3) > div > div {
+  margin: 0;
+}
+@media screen and (max-width: 640px) {
+  .footerBottom > div {
+    margin-inline: auto;
+  }
+  .footerBottom > div:nth-child(2) {
+    font-size: 0.8em;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footerBottom > div:nth-child(2) > *:nth-child(2n) {
+    display: none;
+  }
 }
 @media screen and (max-width: 996px) {
   .backToTopButton {
