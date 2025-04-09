@@ -16,7 +16,7 @@ Changelog:
 - Support for metadata field to store application level file metadata.
 - Remove node location field and change Node Id from 32 bytes to 16 bytes.
 - Random file id generation during upload transaction.
-- Bug fixes
+- Bug fixes.
 
 ## v0.1.1-dev (dev202502-1)
 
