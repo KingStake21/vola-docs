@@ -41,13 +41,13 @@ cd vola-node-docker
 
 2. **Configure Environment Variables:**
 
-   - Copy the _.env.example_ file to _.env_:
+   2.1. Copy the _.env.example_ file to _.env_: <br>
 
    ```bash
    cp .env.example .env
    ```
 
-   - Open the _.env_ file and update the following variables:
+   2.2. Open the _.env_ file and update the following variables:
 
      - **AURA_SURI**: Specifies the SURI for generating Aura keys. This should be 32 bytes in hex format (0x-prefixed with 64 additional 0-f bytes). Eg: `0x1bbae82623cd6e7475cfd80f59da9f0e2b65597a8e681d60b7eb2a5353d64097`
 
@@ -65,37 +65,40 @@ cd vola-node-docker
 
      - **PROMETHEUS_PORT**: The port number for prometheus exporter, for monitoring node (default is 9615).
 
-     Ensure that these variables are properly configured to match your environment and security requirements.
+     Ensure that these variables are properly configured to match your environment and security requirements.<br>
 
 3. **Generate SURI and Node Key:**
 
-   - To generate the required SURI for Aura and Grandpa keys:
-
+   3.1. Generate the required SURI for Aura and Grandpa keys. This will output a secret seed, which is the required SURI.<br>
+   
    ```bash
    docker run --rm -it nuvoladigital/vola-node key generate
    ```
-
-   This will output a secret seed, which is the required SURI.
-
-   - To generate the node key:
-
+   
+   3.2. Generate the node key. This will provide the node key, which is the second value output by the command.<br>
+     
    ```bash
    docker run --rm -it nuvoladigital/vola-node key generate-node-key
    ```
 
-   This will provide the node key, which is the second value output by the command.
-
 4. **Start the Node:**
-   With your environment variables configured, you can start the node by running Docker Compose:
+   
+   4.1. With your environment variables configured, you can start the node by running Docker Compose.<br>
 
    ```bash
    docker-compose up
    ```
-
-   This will bring up the Vola node and begin syncing with the network.
+   - Your Vola Chain Node should now be syncing with the network. <br>
 
 5. **Access the Node:**
-   Once the node is up and running, you can interact with it using the RPC port (default: 9944).
+   
+   5.1. Once the node is up and running, you can interact with it using the RPC port (default: 9944).
+
+   ```bash
+   curl -s -X POST -H "Content-Type: application/json" \
+   --data '{"jsonrpc":"2.0","method":"system_health","params":[],"id":1} \
+   http://127.0.0.1:9944 | jq
+   ```
 
 ## Updating Vola Chain Node
 
@@ -122,12 +125,12 @@ docker compose up
 ```
 
 :::note
-Make sure you are on the same directory as aggregator node docker repo.
+Make sure you are on the same directory as the vola-node docker repo.
 :::
 
-### Upgrading Chain to new Devnet (v2)
+### Upgrading Vola Chain to Devnet (v2)
 
-If you already have a Vola chain running during the first devnet release, follow the steps below to upgrade your **Vola Chain Node**.
+If you already have a previous Devnet node version running, follow the steps below to upgrade your **Vola Chain Node** to the latest Devnet release.
 
 1. **Shut down the existing container:**
 
